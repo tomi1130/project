@@ -1,8 +1,13 @@
 import styled from "styled-components"
 import { SerchInput } from "../molecules/SerchInput"
 import { UserCards } from "../organisms/user/UserCards"
+import { SecondaryButtons } from "../atoms/buttons/SecondaryButtons"
+//import { useContext } from "react"
+import { useRecoilState } from "recoil"
+import { userState } from "../../store/userState"
 
 const users=[...Array(10).keys()].map(((val)=>{
+
     return{
             id:val,
             name:"田中",
@@ -17,13 +22,19 @@ const users=[...Array(10).keys()].map(((val)=>{
 }))
 
 export const Users = ()=>{
+   // const{userInfo,setUserInfo } = useContext(UserContext);
+   const[userInfo,setUserInfo] = useRecoilState(userState);
+
+    const onClickSwitch = () => setUserInfo({isAdmin:!userInfo.isAdmin});
     return(
         <SContainer>
-            <h2>ユーザー一覧です</h2>
+            <h2>ユーザー一覧</h2>
             <SerchInput　/>
+            <br/>
+            <SecondaryButtons onClick={onClickSwitch}>切り替え</SecondaryButtons>
             <SUserArea>
             {users.map((user)=>(
-                <UserCards key={users.id} user={user} />
+                <UserCards key={users.id} user={user}/>
             ))}
             </SUserArea>
         </SContainer>
