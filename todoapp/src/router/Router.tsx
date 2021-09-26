@@ -3,12 +3,14 @@ import { Route, Switch } from "react-router";
 import { Login } from "../components/pages/Login";
 import { Page404 } from "../components/pages/page404";
 import { HeaderLayout } from "../components/templates/headerLayout";
+import { LoginUserProvider } from "../providers/LoginUserProvider";
 import { HomeRoutes } from "./HomeRoutes";
 
 
 export const Router:VFC=memo(()=>{
     return(
         <Switch>
+            <LoginUserProvider>
             <Route exact path="/">
                 <Login />
             </Route>
@@ -21,6 +23,7 @@ export const Router:VFC=memo(()=>{
                     ))}
                 </Switch>
             )} />
+            </LoginUserProvider>
             <Route path="*">
                 <Page404/>
             </Route>
